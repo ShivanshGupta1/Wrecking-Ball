@@ -1,4 +1,4 @@
-var helicopterIMG, helicopterSprite, packageSprite,packageIMG;
+var helicopterIMG, helicopterSprite, packageSprite,packageIMG, XandY;
 var packageBody,ground
 const Engine = Matter.Engine;
 const World = Matter.World;
@@ -88,23 +88,29 @@ function draw() {
 
 function keyPressed(){
 
-	if (keyDown(RIGHT_ARROW)){
+	if (keyCode == RIGHT_ARROW){
 		helicopterSprite.x+=5
-	  packageBody.position.x  = helicopterSprite.x
-	  packageBody.position.y = helicopterSprite.y
+		XandY = {
+			x:  helicopterSprite.x,
+			y: helicopterSprite.y
+		}
+	 Matter.Body.translate(packageBody, XandY)
 	  console.log(helicopterSprite.x,packageBody.position.x)
 	
 	  
 }
 
-if (keyDown(DOWN_ARROW)){
+if (keyCode == DOWN_ARROW){
 	
 	Matter.Body.setStatic(packageBody, false)
 }
-if (keyDown(LEFT_ARROW)){
+if (keyCode == LEFT_ARROW){
 	helicopterSprite.x-=5
-  packageBody.position.x  = helicopterSprite.x
-  packageBody.position.y = helicopterSprite.y
+	XandY = {
+		x:  helicopterSprite.x,
+		y: helicopterSprite.y
+	}
+ Matter.Body.translate(packageBody, XandY)
   console.log(helicopterSprite.x,packageBody.position.x)
 
   
