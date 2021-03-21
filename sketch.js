@@ -91,10 +91,10 @@ function keyPressed(){
 	if (keyCode == RIGHT_ARROW){
 		helicopterSprite.x+=5
 		XandY = {
-			x:  helicopterSprite.x,
-			y: helicopterSprite.y
+			x:  5,
+			y: 0
 		}
-	 Matter.Body.translate(packageBody, XandY)
+	  Matter.Body.translate(packageBody, XandY)
 	  console.log(helicopterSprite.x,packageBody.position.x)
 	
 	  
@@ -107,8 +107,8 @@ if (keyCode == DOWN_ARROW){
 if (keyCode == LEFT_ARROW){
 	helicopterSprite.x-=5
 	XandY = {
-		x:  helicopterSprite.x,
-		y: helicopterSprite.y
+		x:  -5,
+		y: 0
 	}
  Matter.Body.translate(packageBody, XandY)
   console.log(helicopterSprite.x,packageBody.position.x)
