@@ -1,65 +1,34 @@
-var helicopterIMG, helicopterSprite, packageSprite,packageIMG, XandY;
-var packageBody,ground
+var ball, world, rope, roof, engine, block1, block2, ground;
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
-
-function preload()
-{
-	helicopterIMG=loadImage("helicopter.png")
-	packageIMG=loadImage("package.png")
-}
+const Constraint = Matter.Constraint
 
 function setup() {
 	createCanvas(800, 700);
 	rectMode(CENTER);
 	
 
-	packageSprite=createSprite(width/2, 80, 10,10);
-	packageSprite.addImage(packageIMG)
-	packageSprite.scale=0.2
-
-	helicopterSprite=createSprite(width/2, 200, 10,10);
-	helicopterSprite.addImage(helicopterIMG)
-	helicopterSprite.scale=0.6
-
-	groundSprite=createSprite(width/2, height-35, width,10);
-	groundSprite.shapeColor=color(255)
 
 
 	engine = Engine.create();
 	world = engine.world;
-
-	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.4, isStatic:true});
-	World.add(world, packageBody);
+	ball = new Ball(50,150,20)
+ 	roof = new Block(300,100,300,25);
+	Body.setStatic(roof.body,true)
+	rope = new Rope(ball.body,{x:300,y:100})
+	ground = new Block(300,400,1000,25);
+	Body.setStatic(ground.body,true);
+	block1 = new Block(400,350,50,50);
+	block2 = new Block(450,350,50,50);
+	block3 = new Block(400,300,50,50);
+	block4 = new Block(450,300,50,50);
+	block5 = new Block(400,250,50,50);
+	block6 = new Block(450,250,50,50);
+	block7 = new Block(400,200,50,50);
+	block8 = new Block(450,200,50,50);
 	
-
-	//Create a Ground
-	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
- 	World.add(world, ground);
-
- 	boxPosition=width/2-100
- 	boxY=610;
-
-
- 	boxleftSprite=createSprite(boxPosition, boxY, 20,100);
- 	boxleftSprite.shapeColor=color(255,0,0);
-
- 	boxLeftBody = Bodies.rectangle(boxPosition+20, boxY, 20,100 , {isStatic:true} );
- 	World.add(world, boxLeftBody);
-
- 	boxBase=createSprite(boxPosition+100, boxY+40, 200,20);
- 	boxBase.shapeColor=color(255,0,0);
-
- 	boxBottomBody = Bodies.rectangle(boxPosition+100, boxY+45-20, 200,20 , {isStatic:true} );
- 	World.add(world, boxBottomBody);
-
- 	boxleftSprite=createSprite(boxPosition+200 , boxY, 20,100);
- 	boxleftSprite.shapeColor=color(255,0,0);
-
- 	boxRightBody = Bodies.rectangle(boxPosition+200-20 , boxY, 20,100 , {isStatic:true} );
- 	World.add(world, boxRightBody);
 
 
 	Engine.run(engine);
@@ -71,49 +40,27 @@ function draw() {
  Engine.update(engine);	
   rectMode(CENTER);
   background(0);
-  drawSprites();
+  ball.display();
+  roof.display();
+  rope.display();
+  ground.display();
+  block1.display();
+  block2.display();
+  block3.display();
+  block4.display();
+  block5.display();
+  block6.display();
+  block7.display();
+  block8.display();
  
- 
-
-
-
-  
-  packageSprite.x= packageBody.position.x 
-  packageSprite.y= packageBody.position.y 
-
 
 
  
 }
-
-function keyPressed(){
-
-	if (keyCode == RIGHT_ARROW){
-		helicopterSprite.x+=5
-		XandY = {
-			x:  5,
-			y: 0
-		}
-	  Matter.Body.translate(packageBody, XandY)
-	  console.log(helicopterSprite.x,packageBody.position.x)
-	
-	  
-}
-
-if (keyCode == DOWN_ARROW){
-	
-	Matter.Body.setStatic(packageBody, false)
-}
-if (keyCode == LEFT_ARROW){
-	helicopterSprite.x-=5
-	XandY = {
-		x:  -5,
-		y: 0
-	}
- Matter.Body.translate(packageBody, XandY)
-  console.log(helicopterSprite.x,packageBody.position.x)
-
-  
-}
+function mouseDragged(){
+   
+        Matter.Body.setPosition(ball.body,{x:mouseX,y:150})
+   
+    
 }
 
